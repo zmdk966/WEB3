@@ -10,6 +10,9 @@
         console.log(response);
       if(response.status === 'connected'){
         document.querySelector('#authBtn').value = 'Logout';
+        FB.api('/me', function(resp){
+            document.querySelector('#name').innerHTML = resp.name;
+        });
       } else {
         document.querySelector('#authBtn').value = 'Login';
       }
@@ -51,6 +54,7 @@
       });
     }
   ">
+  <div id="name"></div>
   <h1><a href="#!welcome">WEB</a></h1>
   <input id="night_day" type="button" value="night" onclick="
     nightDayHandler(this);

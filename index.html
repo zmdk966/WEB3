@@ -6,6 +6,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="colors.js"></script>
   <script>
+     var checkLoginStatus = function(response){
+        console.log(response);
+      if(response.status === 'connected'){
+        document.querySelector('#authBtn').value = 'Logout';
+      } else {
+        document.querySelector('#authBtn').value = 'Login';
+      }
+    } 
+      FB.getLoginStatus(checkLoginStatus);
+    };   
     
     window.fbAsyncInit = function() {
       FB.init({
@@ -14,18 +24,8 @@
         xfbml      : true,                     // Parse social plugins on this webpage.
         version    : 'v7.0'           // Use this Graph API version for this call.
       });
-      
-    var callback = function(response){
-        console.log(response);
-      if(response.status === 'connected'){
-        document.querySelector('#authBtn').value = 'Logout';
-      } else {
-        document.querySelector('#authBtn').value = 'Login';
-      }
     }
-      FB.getLoginStatus(callback);
-    };
-    
+          
     (function(d, s, id) {                      // Load the SDK asynchronously
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -41,12 +41,14 @@
   <input type="button" id="authBtn" value ="checking..." onclick="
     if(this.value === 'Login'){
     // now log out
-      FB.login(function(response){
-        console.log('login =>', response);
+      FB.login(function(res){
+        console.log('login =>', res);
+        checkLoginStatus(res);
       });
     } else{
-      FB.logout(function(response){
-        console.log('logout =>', response);
+      FB.logout(function(res){
+        console.log('logout =>', res);
+        checkLoginStatus(res); 
       });
     }
   ">

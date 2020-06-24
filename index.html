@@ -14,8 +14,6 @@
         document.querySelector('#authBtn').value = 'Login';
       }
     } 
-      FB.getLoginStatus(checkLoginStatus);
-    };   
     
     window.fbAsyncInit = function() {
       FB.init({
@@ -24,7 +22,8 @@
         xfbml      : true,                     // Parse social plugins on this webpage.
         version    : 'v7.0'           // Use this Graph API version for this call.
       });
-    }
+       FB.getLoginStatus(checkLoginStatus);
+    };
           
     (function(d, s, id) {                      // Load the SDK asynchronously
       var js, fjs = d.getElementsByTagName(s)[0];
